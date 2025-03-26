@@ -11,3 +11,19 @@ Elastic Container Registry vs DockerHub.
   - In ECR we can store any no of container images.
   - It is pay as you go service where AWS does not restrict us for the number of images
   - AWS will take care that ECR is available all the time
+
+-----------------------------------------------------------------------------------------------
+
+Difference between ECR and DockerHub
+-
+- When we start using containers, first registry we use is dockerhub as it is free and can create our public repo where we can push images so others can access and download. Dockerhub also has private repo where only authorized people can access our image.
+- ECR supports private repo concept by default whereas in Dockerhub by default repository created is public. (We can create public repos in ECR as well). So ECR is security prompt.
+- Advantage here is we can use our IAM users along with ECR, we can integrate IAM with ECR. If we tag IAM users with ECR, only authorized users can access it keeping our images secure.
+- If dockerhub goes down we dont have that much support which we have in AWS's ECR.
+- ECR has very good integration with other AWS services like ECS, EKS, Fargate.
+- For personal projects, we can use dockerhub but for organizational level always use ECR as it is private container registry.
+
+-----------------------------------------------------------------------------------------------
+
+Practical Demo
+-
