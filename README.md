@@ -27,3 +27,43 @@ Difference between ECR and DockerHub
 
 Practical Demo
 -
+- Go to ECR - Create (Private repo by default) - Provide repo name - Enable tag immutability (If we try to overwrite images by same tag, it is prevented), keep it disabled - Image scan settings (when pushing images they will get scanned)
+- People accessing these repos should have an IAM user with them
+
+![image](https://github.com/user-attachments/assets/5d2af9c2-5ba8-4c28-838c-4ab05aca1c6d)
+![image](https://github.com/user-attachments/assets/9d2106e3-a952-4dbf-bd2c-796c1d2e94e9)
+
+- We can see "View Push commands" for our created repo to get things done, following which we can push our images to ECR
+
+![image](https://github.com/user-attachments/assets/357b57c4-e767-4422-910d-cc3f65e2e50b)
+
+- To run commands, we must have AWS CLI installed
+
+- To login to ECR registry, first login to docker hub and then run below command
+  - Command :- **aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 975049937461.dkr.ecr.eu-north-1.amazonaws.com**
+  - Here first part fetches our AWS ECR creds and then pipe is used to give output of first command to second
+ 
+
+- Here we're using root account so image gets pushed. If logged in using IAM users we need to grant access explicitly.
+
+- Now using container image build the dockerfile.
+  - For now just enter "FROM ubuntu:latest" to dockerfile and build image
+  - Command :- d**ocker build -t demo-app-repo .**
+ 
+![image](https://github.com/user-attachments/assets/23406251-5616-40d4-ba20-9629e0a3d571)
+
+- Now tag the docker image
+  - Command :- **docker tag demo-app-repo:latest 861276124894.dkr.ecr.us-east-2.amazonaws.com/demo-app-repo:latest**
+  - Tag means image created on local tag it to docker registry. So that the image is pushed to our registry
+
+- Now to push the image
+  - Command :- **docker push 861276124894.dkr.ecr.us-east-2.amazonaws.com/demo-app-repo:latest**
+  - After pushing image to ECR, anyone with proper IAM access can access the image
+  - Now image built in local in available in AWS ECR
+
+![image](https://github.com/user-attachments/assets/15b4fa83-8d9a-465a-9f9e-799598872c26)
+
+
+
+
+
